@@ -1,6 +1,8 @@
 package com.example.moodcheck.ui.years
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
@@ -17,6 +19,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
@@ -63,6 +66,19 @@ private fun YearBody(
         modifier = modifier
             .verticalScroll(rememberScrollState())
     ) {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = modifier.padding(1.dp)
+        ) {
+            Text(text = "")
+            for (day in 1..31) {
+                MoodBubble(
+                    day = day,
+                    mood = 0
+                )
+            }
+        }
         monthList.forEach { month ->
             MoodList(
                 month = month,
@@ -99,7 +115,7 @@ private fun MoodList(
     Column(modifier = modifier) {
         Text(text = month)
         moodList.forEach { mood ->
-            MoodBubble(mood)
+            MoodBubble(mood = mood)
         }
     }
 }
@@ -118,7 +134,8 @@ private fun MoodListPreview() {
 @Composable
 private fun MoodBubble(
     mood: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    day: Int = 0,
 ) {
     val color = when(mood) {
         1 -> scale_one
@@ -128,6 +145,9 @@ private fun MoodBubble(
         5 -> scale_five
         else -> MaterialTheme.colorScheme.background
     }
+    val outlineColor = if (day == 0) {
+        MaterialTheme.colorScheme.outline
+    } else { MaterialTheme.colorScheme.background }
 
     Surface(
         shape = MaterialTheme.shapes.medium,
@@ -138,13 +158,16 @@ private fun MoodBubble(
             .padding(1.dp)
             .border(
                 width = 0.5.dp,
-                color = MaterialTheme.colorScheme.outline,
+                color = outlineColor,
                 shape = MaterialTheme.shapes.medium
             )
     ) {
-        Text(
-            text = "",
-        )
+        // Wrap text in box to align contents
+        Box(modifier = modifier, contentAlignment = Alignment.Center) {
+            Text(
+                text = if (day == 0) { "" } else { "$day" },
+            )
+        }
     }
 }
 
