@@ -27,6 +27,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.moodcheck.MoodTopAppBar
+import com.example.moodcheck.ui.navigation.NavigationDestination
 import com.example.moodcheck.ui.theme.MoodCheckTheme
 import com.example.moodcheck.ui.theme.scale_five
 import com.example.moodcheck.ui.theme.scale_four
@@ -34,9 +35,15 @@ import com.example.moodcheck.ui.theme.scale_one
 import com.example.moodcheck.ui.theme.scale_three
 import com.example.moodcheck.ui.theme.scale_two
 
+object YearDestination : NavigationDestination {
+    override val route = "yearscreen"
+    override val titleRes = 0
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun YearScreen(
+    navigateToRateMood: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -76,7 +83,7 @@ fun YearScreen(
 @Composable
 private fun YearScreenPreview() {
     MoodCheckTheme {
-        YearScreen()
+        YearScreen({})
     }
 }
 
