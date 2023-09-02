@@ -8,11 +8,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -46,14 +48,35 @@ fun YearScreen(
                 title = "Title",
                 scrollBehavior = scrollBehavior
             )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { /*TODO*/ },
+                shape = MaterialTheme.shapes.extraLarge,
+                modifier = Modifier.padding(20.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Edit,
+                    contentDescription = "Add mood"
+                )
+            }
         }
     ) { innerPadding ->
         YearBody(
             monthList = listOf(
                 "Jan", "Feb", "Mar", "Apr"
             ),
-            modifier = modifier.padding(innerPadding)
+            modifier = modifier
+                .padding(innerPadding)
         )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun YearScreenPreview() {
+    MoodCheckTheme {
+        YearScreen()
     }
 }
 
@@ -150,7 +173,7 @@ private fun MoodBubble(
     } else { MaterialTheme.colorScheme.background }
 
     Surface(
-        shape = MaterialTheme.shapes.medium,
+//        shape = MaterialTheme.shapes.extraSmall,
         color = color,
         modifier = modifier
             .height(32.dp)
@@ -159,7 +182,7 @@ private fun MoodBubble(
             .border(
                 width = 0.5.dp,
                 color = outlineColor,
-                shape = MaterialTheme.shapes.medium
+//                shape = MaterialTheme.shapes.extraSmall
             )
     ) {
         // Wrap text in box to align contents
