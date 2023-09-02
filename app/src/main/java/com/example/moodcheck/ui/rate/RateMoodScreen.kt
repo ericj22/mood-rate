@@ -19,15 +19,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.moodcheck.MoodTopAppBar
+import com.example.moodcheck.R
 import com.example.moodcheck.ui.navigation.NavigationDestination
 import com.example.moodcheck.ui.theme.MoodCheckTheme
 
 object RateDestination : NavigationDestination {
     override val route = "rate"
-    override val titleRes = 3
+    override val titleRes = R.string.rate_your_day
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -38,7 +40,7 @@ fun RateMoodScreen(
     Scaffold(
         topBar = {
             MoodTopAppBar(
-                title = "Rate your day",
+                title = stringResource(RateDestination.titleRes),
                 modifier = modifier
             )
         }
@@ -61,7 +63,7 @@ fun RateMoodBody(
 ) {
     Column(modifier = modifier.padding(8.dp)) {
         Text(
-            text = "Rate how you're feeling today: 3"
+            text = stringResource(R.string.rate_feeling_prompt) + "3"
         )
         RateMoodSlider()
         RateMoodJournal()
@@ -71,7 +73,7 @@ fun RateMoodBody(
             shape = MaterialTheme.shapes.small,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Save")
+            Text(stringResource(R.string.save_action))
         }
     }
 }
@@ -116,9 +118,9 @@ fun RateMoodJournal(
         modifier = modifier
     ) {
         OutlinedTextField(
-            value = "Journal about your feelings...",
+            value = stringResource(R.string.journal_about_your_feelings),
             onValueChange = { /* TODO */ },
-            label = { Text(text = "Journal Entry:") },
+            label = { Text(text = stringResource(R.string.journal_entry)) },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,

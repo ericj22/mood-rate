@@ -24,9 +24,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.moodcheck.MoodTopAppBar
+import com.example.moodcheck.R
 import com.example.moodcheck.ui.navigation.NavigationDestination
 import com.example.moodcheck.ui.theme.MoodCheckTheme
 import com.example.moodcheck.ui.theme.scale_five
@@ -36,8 +38,8 @@ import com.example.moodcheck.ui.theme.scale_three
 import com.example.moodcheck.ui.theme.scale_two
 
 object YearDestination : NavigationDestination {
-    override val route = "yearscreen"
-    override val titleRes = 0
+    override val route = "year-screen"
+    override val titleRes = R.string.app_name
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -52,19 +54,19 @@ fun YearScreen(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             MoodTopAppBar(
-                title = "Title",
+                title = stringResource(YearDestination.titleRes),
                 scrollBehavior = scrollBehavior
             )
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /*TODO*/ },
+                onClick = navigateToRateMood,
                 shape = MaterialTheme.shapes.extraLarge,
                 modifier = Modifier.padding(20.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.Edit,
-                    contentDescription = "Add mood"
+                    contentDescription = stringResource(R.string.add_rating)
                 )
             }
         }
@@ -155,7 +157,7 @@ private fun MoodList(
 private fun MoodListPreview() {
     MoodCheckTheme {
         MoodList(
-            month = "JAN",
+            month = stringResource(R.string.jan),
             moodList = listOf(1, 2, 3, 4, 5)
         )
     }

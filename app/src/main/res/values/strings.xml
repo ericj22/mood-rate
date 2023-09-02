@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">MoodCheck</string>
+    <string name="rate_your_day">Rate your day</string>
+    <string name="rate_feeling_prompt">"Rate how you're feeling today: "</string>
+    <string name="save_action">Save</string>
+    <string name="journal_about_your_feelings">Journal about your feelings...</string>
+    <string name="journal_entry">Journal Entry:</string>
+    <string name="home">Home</string>
+    <string name="add_rating">Add rating</string>
+    <string name="jan">JAN</string>
+    <string name="feb">FEB</string>
+    <string name="mar">MAR</string>
+    <string name="apr">APR</string>
+    <string name="may">MAY</string>
+    <string name="jun">JUN</string>
+    <string name="jul">JUL</string>
+    <string name="aug">AUG</string>
+    <string name="sep">SEP</string>
+    <string name="oct">OCT</string>
+    <string name="nov">NOV</string>
+    <string name="dec">DEC</string>
 </resources>
