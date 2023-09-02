@@ -75,8 +75,7 @@ fun YearScreen(
             monthList = listOf(
                 "Jan", "Feb", "Mar", "Apr"
             ),
-            modifier = modifier
-                .padding(innerPadding)
+            modifier = modifier.padding(innerPadding)
         )
     }
 }
@@ -97,11 +96,12 @@ private fun YearBody(
     Row(
         modifier = modifier
             .verticalScroll(rememberScrollState())
+            .padding(top = 16.dp)
     ) {
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = modifier.padding(1.dp)
+            modifier = Modifier.padding(1.dp)
         ) {
             Text(text = "")
             for (day in 1..31) {
@@ -117,7 +117,7 @@ private fun YearBody(
                 moodList = listOf(
                     1, 2, 3, 4, 5, 4, 5, 3, 3, 1, 1, 1, 4, 5, 4, 3, 2, 1, 2, 5, 3, 4, 1, 0, 0, 0, 0, 0, 0, 0
                 ),
-                modifier = modifier.padding(1.dp)
+                modifier = Modifier.padding(1.dp)
             )
         }
     }
@@ -144,7 +144,10 @@ private fun MoodList(
     moodList: List<Int>,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier
+    ) {
         Text(text = month)
         moodList.forEach { mood ->
             MoodBubble(mood = mood)
