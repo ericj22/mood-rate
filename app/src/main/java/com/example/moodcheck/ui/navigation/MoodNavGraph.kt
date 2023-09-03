@@ -26,7 +26,10 @@ fun MoodNavHost(
             )
         }
         composable(route = RateDestination.route) {
-            RateMoodScreen()
+            RateMoodScreen(
+                navigateBack = { navController.popBackStack() },
+                onNavigateUp = { navController.navigateUp() }
+            )
         }
     }
 }

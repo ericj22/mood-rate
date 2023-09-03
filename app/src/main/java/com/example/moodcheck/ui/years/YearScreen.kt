@@ -55,7 +55,8 @@ fun YearScreen(
         topBar = {
             MoodTopAppBar(
                 title = stringResource(YearDestination.titleRes),
-                scrollBehavior = scrollBehavior
+                scrollBehavior = scrollBehavior,
+                canNavigateBack = false
             )
         },
         floatingActionButton = {

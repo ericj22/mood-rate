@@ -43,14 +43,18 @@ fun RateMoodScreen(
         topBar = {
             MoodTopAppBar(
                 title = stringResource(RateDestination.titleRes),
-                modifier = modifier
+                modifier = modifier,
+                canNavigateBack = canNavigateBack,
+                navigateUp = onNavigateUp
             )
         }
     ) { innerPadding ->
         RateMoodBody(
             rateUiState = viewModel.rateUiState,
             onValueChange = viewModel::updateUiState,
-            onSaveClick = navigateBack,
+            onSaveClick = {
+                navigateBack()
+            },
             modifier = modifier.padding(innerPadding)
         )
     }
