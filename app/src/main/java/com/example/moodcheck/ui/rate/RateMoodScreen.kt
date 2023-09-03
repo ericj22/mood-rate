@@ -14,7 +14,7 @@ import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -82,7 +82,7 @@ fun RateMoodBody(
 fun RateMoodSlider(
     modifier: Modifier = Modifier
 ) {
-    var sliderPosition by remember { mutableStateOf(3f) }
+    var sliderPosition by remember { mutableFloatStateOf(3f) }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
