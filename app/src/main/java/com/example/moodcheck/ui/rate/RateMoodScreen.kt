@@ -13,17 +13,15 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.moodcheck.MoodTopAppBar
 import com.example.moodcheck.R
+import com.example.moodcheck.ui.AppViewModelProvider
 import com.example.moodcheck.ui.navigation.NavigationDestination
 import com.example.moodcheck.ui.theme.MoodCheckTheme
 
@@ -35,7 +33,8 @@ object RateDestination : NavigationDestination {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RateMoodScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: RateMoodViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     Scaffold(
         topBar = {
@@ -45,7 +44,11 @@ fun RateMoodScreen(
             )
         }
     ) { innerPadding ->
-        RateMoodBody(modifier = modifier.padding(innerPadding))
+        RateMoodBody(
+            rateUiState = viewModel.rateUiState,
+            onSliderChange = viewModel::updateUiState,
+            modifier = modifier.padding(innerPadding)
+        )
     }
 }
 
@@ -59,13 +62,18 @@ fun RateMoodScreenPreview() {
 
 @Composable
 fun RateMoodBody(
+    rateUiState: RateUiState,
+    onSliderChange: (MoodDetails) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.padding(8.dp)) {
         Text(
-            text = stringResource(R.string.rate_feeling_prompt) + "3"
+            text = stringResource(R.string.rate_feeling_prompt, rateUiState.mood.rating)
         )
-        RateMoodSlider()
+        RateMoodSlider(
+            moodDetails = rateUiState.mood,
+            onSliderChange = onSliderChange
+        )
         RateMoodJournal()
         Button(
             onClick = {},
@@ -80,16 +88,17 @@ fun RateMoodBody(
 
 @Composable
 fun RateMoodSlider(
-    modifier: Modifier = Modifier
+    moodDetails: MoodDetails,
+    onSliderChange: (MoodDetails) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    var sliderPosition by remember { mutableFloatStateOf(3f) }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
     ) {
         Slider(
-            value = sliderPosition,
-            onValueChange = { sliderPosition = it },
+            value = moodDetails.rating.toFloat(),
+            onValueChange = { onSliderChange(moodDetails.copy(rating = it.toInt())) },
             colors = SliderDefaults.colors(
                 thumbColor = MaterialTheme.colorScheme.secondary,
                 activeTrackColor = MaterialTheme.colorScheme.secondary,
@@ -98,15 +107,7 @@ fun RateMoodSlider(
             steps = 3,
             valueRange = 1f..5f
         )
-        Text(text = sliderPosition.toInt().toString())
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun RateMoodSliderPreview() {
-    MoodCheckTheme {
-        RateMoodSlider()
+//        Text(text = moodDetails.rating.toString())
     }
 }
 
