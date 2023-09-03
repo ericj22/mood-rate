@@ -27,8 +27,11 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.moodcheck.MoodTopAppBar
 import com.example.moodcheck.R
+import com.example.moodcheck.data.Mood
+import com.example.moodcheck.ui.AppViewModelProvider
 import com.example.moodcheck.ui.navigation.NavigationDestination
 import com.example.moodcheck.ui.theme.MoodCheckTheme
 import com.example.moodcheck.ui.theme.scale_five
@@ -46,9 +49,11 @@ object YearDestination : NavigationDestination {
 @Composable
 fun YearScreen(
     navigateToRateMood: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: YearViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    val yearUiState = viewModel.yearUiState
 
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -73,9 +78,7 @@ fun YearScreen(
         }
     ) { innerPadding ->
         YearBody(
-            monthList = listOf(
-                "Jan", "Feb", "Mar", "Apr"
-            ),
+            monthList = yearUiState.months,
             modifier = modifier.padding(innerPadding)
         )
     }
@@ -91,7 +94,7 @@ private fun YearScreenPreview() {
 
 @Composable // Rows of columns
 private fun YearBody(
-    monthList: List<String>,
+    monthList: List<Month>,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -108,41 +111,39 @@ private fun YearBody(
             for (day in 1..31) {
                 MoodBubble(
                     day = day,
-                    mood = 0
+                    mood = Mood()
                 )
             }
         }
         monthList.forEach { month ->
             MoodList(
-                month = month,
-                moodList = listOf(
-                    1, 2, 3, 4, 5, 4, 5, 3, 3, 1, 1, 1, 4, 5, 4, 3, 2, 1, 2, 5, 3, 4, 1, 0, 0, 0, 0, 0, 0, 0
-                ),
+                month = month.month,
+                moodList = month.moods,
                 modifier = Modifier.padding(1.dp)
             )
         }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-private fun YearBodyPreview() {
-    MoodCheckTheme {
-        YearBody(
-            listOf(
-                "JAN",
-                "FEB",
-                "MAR",
-                "APR"
-            )
-        )
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//private fun YearBodyPreview() {
+//    MoodCheckTheme {
+//        YearBody(
+//            listOf(
+//                "JAN",
+//                "FEB",
+//                "MAR",
+//                "APR"
+//            )
+//        )
+//    }
+//}
 
 @Composable
 private fun MoodList(
     month: String,
-    moodList: List<Int>,
+    moodList: List<Mood>,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -156,24 +157,24 @@ private fun MoodList(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-private fun MoodListPreview() {
-    MoodCheckTheme {
-        MoodList(
-            month = stringResource(R.string.jan),
-            moodList = listOf(1, 2, 3, 4, 5)
-        )
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//private fun MoodListPreview() {
+//    MoodCheckTheme {
+//        MoodList(
+//            month = stringResource(R.string.jan),
+//            moodList = listOf(1, 2, 3, 4, 5)
+//        )
+//    }
+//}
 
 @Composable
 private fun MoodBubble(
-    mood: Int,
+    mood: Mood,
     modifier: Modifier = Modifier,
     day: Int = 0,
 ) {
-    val color = when(mood) {
+    val color = when(mood.rating) {
         1 -> scale_one
         2 -> scale_two
         3 -> scale_three

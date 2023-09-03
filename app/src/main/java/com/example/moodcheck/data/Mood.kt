@@ -8,8 +8,8 @@ data class Mood(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val rating: Int = 0,
-    val year: Int,
-    val month: String,
-    val day: Int,
-    val journal: String
+    val year: Int = 2003,
+    val month: String = "Jan",
+    val day: Int = 0,
+    val journal: String = ""
 )
