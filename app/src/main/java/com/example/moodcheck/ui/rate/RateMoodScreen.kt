@@ -33,7 +33,10 @@ object RateDestination : NavigationDestination {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RateMoodScreen(
+    navigateBack: () -> Unit,
+    onNavigateUp: () -> Unit,
     modifier: Modifier = Modifier,
+    canNavigateBack: Boolean = true,
     viewModel: RateMoodViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     Scaffold(
@@ -46,7 +49,8 @@ fun RateMoodScreen(
     ) { innerPadding ->
         RateMoodBody(
             rateUiState = viewModel.rateUiState,
-            onSliderChange = viewModel::updateUiState,
+            onValueChange = viewModel::updateUiState,
+            onSaveClick = navigateBack,
             modifier = modifier.padding(innerPadding)
         )
     }
@@ -56,14 +60,15 @@ fun RateMoodScreen(
 @Composable
 fun RateMoodScreenPreview() {
     MoodCheckTheme {
-        RateMoodScreen()
+        RateMoodScreen({}, {})
     }
 }
 
 @Composable
 fun RateMoodBody(
     rateUiState: RateUiState,
-    onSliderChange: (MoodDetails) -> Unit,
+    onValueChange: (MoodDetails) -> Unit,
+    onSaveClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.padding(8.dp)) {
@@ -72,11 +77,14 @@ fun RateMoodBody(
         )
         RateMoodSlider(
             moodDetails = rateUiState.mood,
-            onSliderChange = onSliderChange
+            onSliderChange = onValueChange
         )
-        RateMoodJournal()
+        RateMoodJournal(
+            moodDetails = rateUiState.mood,
+            onValueChange = onValueChange
+        )
         Button(
-            onClick = {},
+            onClick = onSaveClick,
             enabled = true,
             shape = MaterialTheme.shapes.small,
             modifier = Modifier.fillMaxWidth()
@@ -113,14 +121,16 @@ fun RateMoodSlider(
 
 @Composable
 fun RateMoodJournal(
-    modifier: Modifier = Modifier
+    moodDetails: MoodDetails,
+    onValueChange: (MoodDetails) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
     ) {
         OutlinedTextField(
-            value = stringResource(R.string.journal_about_your_feelings),
-            onValueChange = { /* TODO */ },
+            value = moodDetails.journal,
+            onValueChange = { onValueChange(moodDetails.copy(journal = it)) },
             label = { Text(text = stringResource(R.string.journal_entry)) },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -129,14 +139,7 @@ fun RateMoodJournal(
             ),
             modifier = Modifier.fillMaxWidth(),
             enabled = true,
+            minLines = 5,
         )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun RateMoodJournalPreview() {
-    MoodCheckTheme {
-        RateMoodJournal()
     }
 }
