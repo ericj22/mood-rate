@@ -125,21 +125,6 @@ private fun YearBody(
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//private fun YearBodyPreview() {
-//    MoodCheckTheme {
-//        YearBody(
-//            listOf(
-//                "JAN",
-//                "FEB",
-//                "MAR",
-//                "APR"
-//            )
-//        )
-//    }
-//}
-
 @Composable
 private fun MoodList(
     month: String,
@@ -157,19 +142,8 @@ private fun MoodList(
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//private fun MoodListPreview() {
-//    MoodCheckTheme {
-//        MoodList(
-//            month = stringResource(R.string.jan),
-//            moodList = listOf(1, 2, 3, 4, 5)
-//        )
-//    }
-//}
-
 @Composable
-private fun MoodBubble(
+fun MoodBubble(
     mood: Mood,
     modifier: Modifier = Modifier,
     day: Int = 0,
@@ -187,17 +161,17 @@ private fun MoodBubble(
     } else { MaterialTheme.colorScheme.background }
 
     Surface(
-//        shape = MaterialTheme.shapes.extraSmall,
+        shape = MaterialTheme.shapes.large,
         color = color,
         modifier = modifier
             .height(32.dp)
             .width(32.dp)
             .padding(1.dp)
-            .border(
-                width = 0.5.dp,
-                color = outlineColor,
+//            .border(
+//                width = 0.5.dp,
+//                color = outlineColor,
 //                shape = MaterialTheme.shapes.extraSmall
-            )
+//            )
     ) {
         // Wrap text in box to align contents
         Box(modifier = modifier, contentAlignment = Alignment.Center) {
