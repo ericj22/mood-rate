@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.example.moodcheck.MoodTopAppBar
 import com.example.moodcheck.R
 import com.example.moodcheck.data.Mood
+import com.example.moodcheck.ui.navigation.NavigationDestination
 import com.example.moodcheck.ui.theme.MoodCheckTheme
 import com.example.moodcheck.ui.years.MoodBubble
 
@@ -31,6 +32,13 @@ import com.example.moodcheck.ui.years.MoodBubble
  * Screen that comes up from clicking on a past mood
  * Displays date, rating, and journal from that day
  */
+
+object PastDestination : NavigationDestination {
+    override val route = "past"
+    override val titleRes = R.string.rate_your_day
+    const val moodIdArg = "moodId"
+    val routeWithArgs = "$route/{$moodIdArg}"
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
