@@ -25,7 +25,7 @@ interface MoodDao {
 
     @MapInfo(keyColumn = "month")
     @Query(
-        "SELECT * from moods ORDER BY day ASC"
+        "SELECT * from moods WHERE year = :year ORDER BY day ASC"
     )
-    fun getMonths(): Flow<Map<String, List<Mood>>>
+    fun getMonths(year: Int): Flow<Map<String, List<Mood>>>
 }

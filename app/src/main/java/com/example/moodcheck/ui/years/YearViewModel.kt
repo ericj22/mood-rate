@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.stateIn
 // ViewModel for Home
 class YearViewModel(moodsRepository: MoodsRepository) : ViewModel() {
     val yearUiState: StateFlow<YearUiState> =
-        moodsRepository.getMonths().map { YearUiState(it) }
+        moodsRepository.getMonths(2023).map { YearUiState(it) }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
