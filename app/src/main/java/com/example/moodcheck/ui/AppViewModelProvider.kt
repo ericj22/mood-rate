@@ -20,7 +20,7 @@ object AppViewModelProvider {
 
         // initializer for RateMoodViewModel
         initializer {
-            RateMoodViewModel()
+            RateMoodViewModel(moodApplication().container.moodsRepository)
         }
 
         // initializer for PastMoodViewModel

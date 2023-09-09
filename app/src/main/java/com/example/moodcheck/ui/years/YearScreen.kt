@@ -1,6 +1,5 @@
 package com.example.moodcheck.ui.years
 
-import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -149,7 +148,6 @@ private fun MoodList(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
     ) {
-        Log.d("Activity", "MoodList size: ${moodList?.size}")
         Text(text = month)
         moodList?.forEach { mood ->
             MoodBubble(

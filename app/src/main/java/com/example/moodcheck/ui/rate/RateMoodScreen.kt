@@ -13,6 +13,7 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -24,6 +25,7 @@ import com.example.moodcheck.R
 import com.example.moodcheck.ui.AppViewModelProvider
 import com.example.moodcheck.ui.navigation.NavigationDestination
 import com.example.moodcheck.ui.theme.MoodCheckTheme
+import kotlinx.coroutines.launch
 
 object RateDestination : NavigationDestination {
     override val route = "rate"
@@ -39,6 +41,7 @@ fun RateMoodScreen(
     canNavigateBack: Boolean = true,
     viewModel: RateMoodViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
+    val coroutineScope = rememberCoroutineScope()
     Scaffold(
         topBar = {
             MoodTopAppBar(
@@ -53,7 +56,10 @@ fun RateMoodScreen(
             rateUiState = viewModel.rateUiState,
             onValueChange = viewModel::updateUiState,
             onSaveClick = {
-                navigateBack()
+                coroutineScope.launch {
+                    viewModel.updateMood()
+                    navigateBack()
+                }
             },
             modifier = modifier.padding(innerPadding)
         )
