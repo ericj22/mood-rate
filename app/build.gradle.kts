@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-//    id("com.google.devtools.ksp") version "1.8.21-1.0.11"
+    id("com.google.devtools.ksp") version "1.8.21-1.0.11"
 }
 
 android {
@@ -41,7 +41,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = "1.4.7"
     }
     packaging {
         resources {
@@ -72,6 +72,6 @@ dependencies {
 
     //Room
     implementation("androidx.room:room-runtime:${rootProject.extra["room_version"]}")
-//    ksp("androidx.room:room-compiler:${rootProject.extra["room_version"]}")
+    ksp("androidx.room:room-compiler:${rootProject.extra["room_version"]}")
     implementation("androidx.room:room-ktx:${rootProject.extra["room_version"]}")
 }
