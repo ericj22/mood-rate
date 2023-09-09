@@ -7,7 +7,6 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.moodcheck.data.Mood
 import com.example.moodcheck.ui.rate.PastDestination
 import com.example.moodcheck.ui.rate.PastMoodScreen
 import com.example.moodcheck.ui.rate.RateDestination
@@ -27,7 +26,10 @@ fun MoodNavHost(
     ) {
         composable(route = YearDestination.route) {
             YearScreen(
-                navigateToRateMood = { navController.navigate(RateDestination.route) }
+                navigateToRateMood = { navController.navigate(RateDestination.route) },
+                navigateToPastMood = { id ->
+                    navController.navigate("${PastDestination.route}/${id}")
+                }
             )
         }
         composable(route = RateDestination.route) {
@@ -44,7 +46,7 @@ fun MoodNavHost(
                 }
             )
         ) {
-            PastMoodScreen(onNavigateUp = { navController.navigateUp() }, mood = Mood())
+            PastMoodScreen(onNavigateUp = { navController.navigateUp() })
         }
     }
 }

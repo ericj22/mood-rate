@@ -2,6 +2,7 @@ package com.example.moodcheck.ui.years
 
 import android.util.Log
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -54,6 +55,7 @@ object YearDestination : NavigationDestination {
 @Composable
 fun YearScreen(
     navigateToRateMood: () -> Unit,
+    navigateToPastMood: (Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: YearViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
@@ -84,6 +86,7 @@ fun YearScreen(
     ) { innerPadding ->
         YearBody(
             months = yearUiState.months,
+            navigateToPastMood = navigateToPastMood,
             modifier = modifier.padding(innerPadding)
         )
     }
@@ -93,13 +96,14 @@ fun YearScreen(
 @Composable
 private fun YearScreenPreview() {
     MoodCheckTheme {
-        YearScreen({})
+        YearScreen({}, {})
     }
 }
 
 @Composable // Rows of columns
 private fun YearBody(
     months: Map<String, List<Mood>>,
+    navigateToPastMood: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -117,7 +121,8 @@ private fun YearBody(
             for (day in 1..31) {
                 MoodBubble(
                     day = day,
-                    mood = Mood(rating = 6)
+                    mood = Mood(rating = 6),
+                    navigateToPastMood = {},
                 )
             }
         }
@@ -126,6 +131,7 @@ private fun YearBody(
             MoodList(
                 month = month,
                 moodList = months[month],
+                navigateToPastMood = navigateToPastMood,
                 modifier = Modifier.padding(1.dp)
             )
         }
@@ -136,6 +142,7 @@ private fun YearBody(
 private fun MoodList(
     month: String,
     moodList: List<Mood>?,
+    navigateToPastMood: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -145,7 +152,10 @@ private fun MoodList(
         Log.d("Activity", "MoodList size: ${moodList?.size}")
         Text(text = month)
         moodList?.forEach { mood ->
-            MoodBubble(mood = mood)
+            MoodBubble(
+                mood = mood,
+                navigateToPastMood = navigateToPastMood
+            )
         }
     }
 }
@@ -154,6 +164,7 @@ private fun MoodList(
 fun MoodBubble(
     mood: Mood,
     modifier: Modifier = Modifier,
+    navigateToPastMood: (Int) -> Unit,
     day: Int = 0,
 ) {
     val color = when(mood.rating) {
@@ -174,11 +185,10 @@ fun MoodBubble(
             .padding(1.dp)
             .border(
                 width = 0.5.dp,
-                color = if (mood.rating == 0) {
-                    MaterialTheme.colorScheme.outline
-                } else {MaterialTheme.colorScheme.background} ,
-                shape = MaterialTheme.shapes.medium
+                color = if (mood.rating == 0) {MaterialTheme.colorScheme.outline} else {color} ,
+                shape = MaterialTheme.shapes.medium,
             )
+            .clickable(onClick = {navigateToPastMood(mood.id)})
     ) {
         // Wrap text in box to align contents
         Box(modifier = modifier, contentAlignment = Alignment.Center) {
@@ -188,4 +198,3 @@ fun MoodBubble(
         }
     }
 }
-

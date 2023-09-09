@@ -1,10 +1,12 @@
 package com.example.moodcheck.ui
 
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.moodcheck.MoodApplication
+import com.example.moodcheck.ui.rate.PastMoodViewModel
 import com.example.moodcheck.ui.rate.RateMoodViewModel
 import com.example.moodcheck.ui.years.YearViewModel
 
@@ -19,6 +21,14 @@ object AppViewModelProvider {
         // initializer for RateMoodViewModel
         initializer {
             RateMoodViewModel()
+        }
+
+        // initializer for PastMoodViewModel
+        initializer {
+            PastMoodViewModel(
+                this.createSavedStateHandle(),
+                moodApplication().container.moodsRepository
+            )
         }
     }
 }

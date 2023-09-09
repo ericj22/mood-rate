@@ -15,15 +15,19 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.moodcheck.MoodTopAppBar
 import com.example.moodcheck.R
 import com.example.moodcheck.data.Mood
+import com.example.moodcheck.ui.AppViewModelProvider
 import com.example.moodcheck.ui.navigation.NavigationDestination
 import com.example.moodcheck.ui.theme.MoodCheckTheme
 import com.example.moodcheck.ui.years.MoodBubble
@@ -44,9 +48,11 @@ object PastDestination : NavigationDestination {
 @Composable
 fun PastMoodScreen(
     onNavigateUp: () -> Unit,
-    mood: Mood,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: PastMoodViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
+    val uiState by viewModel.uiState.collectAsState()
+
     Scaffold(
         topBar = {
             MoodTopAppBar(
@@ -58,7 +64,7 @@ fun PastMoodScreen(
 
     ) { innerPadding ->
         PastMoodBody(
-            mood = mood,
+            mood = uiState.mood,
             modifier = modifier.padding(innerPadding)
         )
     }
@@ -69,8 +75,7 @@ fun PastMoodScreen(
 fun PastMoodScreenPreview() {
     MoodCheckTheme {
         PastMoodScreen(
-            onNavigateUp = { /*TODO*/ },
-            Mood(rating = 3, journal = "cry today I cried a lot and I was really sad but that means I'm a little suicidal so I rated the day a 3 since I didn't cut myself but I was also pretty sad and nothing went particularly well. I'm really sadge now but oh well idk what to do ")
+            onNavigateUp = { /*TODO*/ }
         )
     }
 }
@@ -103,7 +108,7 @@ fun PastMoodBody(
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(horizontal = 8.dp)
                 )
-                MoodBubble(mood = Mood(rating = mood.rating))
+                MoodBubble(mood = Mood(rating = mood.rating), navigateToPastMood = {})
             }
             OutlinedTextField(
                 value = mood.journal,
