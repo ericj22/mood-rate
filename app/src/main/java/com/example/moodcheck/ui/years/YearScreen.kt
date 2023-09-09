@@ -1,6 +1,8 @@
 package com.example.moodcheck.ui.years
 
+import android.util.Log
 import androidx.compose.foundation.border
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,6 +23,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -30,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.moodcheck.MoodTopAppBar
 import com.example.moodcheck.R
+import com.example.moodcheck.data.MONTHS
 import com.example.moodcheck.data.Mood
 import com.example.moodcheck.ui.AppViewModelProvider
 import com.example.moodcheck.ui.navigation.NavigationDestination
@@ -53,7 +58,7 @@ fun YearScreen(
     viewModel: YearViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-    val yearUiState = viewModel.yearUiState
+    val yearUiState by viewModel.yearUiState.collectAsState()
 
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -78,7 +83,7 @@ fun YearScreen(
         }
     ) { innerPadding ->
         YearBody(
-            monthList = yearUiState.months,
+            months = yearUiState.months,
             modifier = modifier.padding(innerPadding)
         )
     }
@@ -94,12 +99,13 @@ private fun YearScreenPreview() {
 
 @Composable // Rows of columns
 private fun YearBody(
-    monthList: List<Month>,
+    months: Map<String, List<Mood>>,
     modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
             .verticalScroll(rememberScrollState())
+            .horizontalScroll(rememberScrollState())
             .padding(top = 16.dp)
     ) {
         Column(
@@ -111,14 +117,15 @@ private fun YearBody(
             for (day in 1..31) {
                 MoodBubble(
                     day = day,
-                    mood = Mood()
+                    mood = Mood(rating = 6)
                 )
             }
         }
-        monthList.forEach { month ->
+
+        MONTHS.forEach { month ->
             MoodList(
-                month = month.month,
-                moodList = month.moods,
+                month = month,
+                moodList = months[month],
                 modifier = Modifier.padding(1.dp)
             )
         }
@@ -128,15 +135,16 @@ private fun YearBody(
 @Composable
 private fun MoodList(
     month: String,
-    moodList: List<Mood>,
+    moodList: List<Mood>?,
     modifier: Modifier = Modifier
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
     ) {
+        Log.d("Activity", "MoodList size: ${moodList?.size}")
         Text(text = month)
-        moodList.forEach { mood ->
+        moodList?.forEach { mood ->
             MoodBubble(mood = mood)
         }
     }
@@ -156,22 +164,21 @@ fun MoodBubble(
         5 -> scale_five
         else -> MaterialTheme.colorScheme.background
     }
-    val outlineColor = if (day == 0) {
-        MaterialTheme.colorScheme.outline
-    } else { MaterialTheme.colorScheme.background }
 
     Surface(
-        shape = MaterialTheme.shapes.large,
+        shape = MaterialTheme.shapes.medium,
         color = color,
         modifier = modifier
             .height(32.dp)
             .width(32.dp)
             .padding(1.dp)
-//            .border(
-//                width = 0.5.dp,
-//                color = outlineColor,
-//                shape = MaterialTheme.shapes.extraSmall
-//            )
+            .border(
+                width = 0.5.dp,
+                color = if (mood.rating == 0) {
+                    MaterialTheme.colorScheme.outline
+                } else {MaterialTheme.colorScheme.background} ,
+                shape = MaterialTheme.shapes.medium
+            )
     ) {
         // Wrap text in box to align contents
         Box(modifier = modifier, contentAlignment = Alignment.Center) {

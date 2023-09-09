@@ -3,6 +3,7 @@ package com.example.moodcheck.data
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.MapInfo
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
@@ -22,6 +23,9 @@ interface MoodDao {
     @Query("SELECT * from moods WHERE id = :id")
     fun getMood(id: Int): Flow<Mood>
 
-    @Query("SELECT * from moods WHERE month = :month ORDER BY day ASC")
-    fun getMonth(month: String): Flow<List<Mood>>
+    @MapInfo(keyColumn = "month")
+    @Query(
+        "SELECT * from moods ORDER BY day ASC"
+    )
+    fun getMonths(): Flow<Map<String, List<Mood>>>
 }

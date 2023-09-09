@@ -3,7 +3,7 @@ package com.example.moodcheck.data
 import kotlinx.coroutines.flow.Flow
 
 interface MoodsRepository {
-    fun getMonthStream(month: String): Flow<List<Mood>>
+    fun getMonths(): Flow<Map<String, List<Mood>>>
 
     fun getMood(id: Int): Flow<Mood?>
 

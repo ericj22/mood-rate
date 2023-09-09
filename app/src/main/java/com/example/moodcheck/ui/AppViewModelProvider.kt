@@ -1,7 +1,10 @@
 package com.example.moodcheck.ui
 
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.moodcheck.MoodApplication
 import com.example.moodcheck.ui.rate.RateMoodViewModel
 import com.example.moodcheck.ui.years.YearViewModel
 
@@ -10,7 +13,7 @@ object AppViewModelProvider {
     val Factory = viewModelFactory {
         // initializer for YearViewModel
         initializer {
-            YearViewModel()
+            YearViewModel(moodApplication().container.moodsRepository)
         }
 
         // initializer for RateMoodViewModel
@@ -19,3 +22,6 @@ object AppViewModelProvider {
         }
     }
 }
+
+fun CreationExtras.moodApplication(): MoodApplication =
+    (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as MoodApplication)
