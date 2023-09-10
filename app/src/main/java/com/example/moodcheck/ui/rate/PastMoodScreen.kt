@@ -122,7 +122,7 @@ fun PastMoodBody(
                     disabledContainerColor = MaterialTheme.colorScheme.background
                 ),
                 modifier = Modifier.fillMaxWidth(),
-                enabled = false,
+                readOnly = true,
                 minLines = 5,
             )
         }
