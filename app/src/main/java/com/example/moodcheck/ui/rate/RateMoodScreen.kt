@@ -95,7 +95,7 @@ fun RateMoodBody(
         )
         Button(
             onClick = onSaveClick,
-            enabled = true,
+            enabled = rateUiState.mood.rating in 1..5,
             shape = MaterialTheme.shapes.small,
             modifier = Modifier.fillMaxWidth()
         ) {

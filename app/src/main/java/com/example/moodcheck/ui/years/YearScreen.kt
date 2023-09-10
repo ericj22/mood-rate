@@ -152,7 +152,7 @@ private fun MoodList(
         moodList?.forEach { mood ->
             MoodBubble(
                 mood = mood,
-                navigateToPastMood = navigateToPastMood
+                navigateToPastMood = if (mood.rating != 0) { navigateToPastMood } else { {} }
             )
         }
     }
@@ -183,10 +183,14 @@ fun MoodBubble(
             .padding(1.dp)
             .border(
                 width = 0.5.dp,
-                color = if (mood.rating == 0) {MaterialTheme.colorScheme.outline} else {color} ,
+                color = if (mood.rating == 0) {
+                    MaterialTheme.colorScheme.outline
+                } else {
+                    color
+                },
                 shape = MaterialTheme.shapes.medium,
             )
-            .clickable(onClick = {navigateToPastMood(mood.id)})
+            .clickable(onClick = { navigateToPastMood(mood.id) })
     ) {
         // Wrap text in box to align contents
         Box(modifier = modifier, contentAlignment = Alignment.Center) {
