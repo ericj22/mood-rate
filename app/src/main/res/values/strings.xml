@@ -20,4 +20,5 @@
     <string name="nov">NOV</string>
     <string name="dec">DEC</string>
     <string name="back_button">Back</string>
+    <string name="rating_for">"Rating for %s %d, %d"</string>
 </resources>

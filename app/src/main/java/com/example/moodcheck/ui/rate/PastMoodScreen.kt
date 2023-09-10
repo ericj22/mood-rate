@@ -39,7 +39,7 @@ import com.example.moodcheck.ui.years.MoodBubble
 
 object PastDestination : NavigationDestination {
     override val route = "past"
-    override val titleRes = R.string.rate_your_day
+    override val titleRes = R.string.rating_for
     const val moodIdArg = "moodId"
     val routeWithArgs = "$route/{$moodIdArg}"
 }
@@ -56,7 +56,9 @@ fun PastMoodScreen(
     Scaffold(
         topBar = {
             MoodTopAppBar(
-                title = "/Date/ Mood",
+                title = stringResource(
+                    PastDestination.titleRes, uiState.mood.month, uiState.mood.day, uiState.mood.year
+                ),
                 canNavigateBack = true,
                 navigateUp = onNavigateUp
             )
