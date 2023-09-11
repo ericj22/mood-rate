@@ -15,7 +15,10 @@ object AppViewModelProvider {
     val Factory = viewModelFactory {
         // initializer for YearViewModel
         initializer {
-            YearViewModel(moodApplication().container.moodsRepository)
+            YearViewModel(
+                moodApplication().container.moodsRepository,
+                moodApplication().userPreferencesRepository
+            )
         }
 
         // initializer for RateMoodViewModel
