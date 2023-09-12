@@ -1,2 +1,2 @@
 # MoodCheck
-Android app for tracking your mood
+Android app for tracking and displaying a user's mood data in an interactive graphic.
