@@ -55,6 +55,7 @@ object YearDestination : NavigationDestination {
 fun YearScreen(
     navigateToRateMood: () -> Unit,
     navigateToPastMood: (Int) -> Unit,
+    openHelp: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: YearViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
@@ -67,7 +68,8 @@ fun YearScreen(
             MoodTopAppBar(
                 title = stringResource(YearDestination.titleRes),
                 scrollBehavior = scrollBehavior,
-                canNavigateBack = false
+                canNavigateBack = false,
+                openHelp = openHelp,
             )
         },
         floatingActionButton = {
@@ -95,7 +97,7 @@ fun YearScreen(
 @Composable
 private fun YearScreenPreview() {
     MoodCheckTheme {
-        YearScreen({}, {})
+        YearScreen({}, {}, {})
     }
 }
 
@@ -161,8 +163,9 @@ private fun MoodList(
 @Composable
 fun MoodBubble(
     mood: Mood,
-    modifier: Modifier = Modifier,
     navigateToPastMood: (Int) -> Unit,
+    modifier: Modifier = Modifier,
+    border: Boolean = false,
     day: Int = 0,
 ) {
     val color = when(mood.rating) {
@@ -183,7 +186,7 @@ fun MoodBubble(
             .padding(1.dp)
             .border(
                 width = 0.5.dp,
-                color = if (mood.rating == 0) {
+                color = if (border) {
                     MaterialTheme.colorScheme.outline
                 } else {
                     color

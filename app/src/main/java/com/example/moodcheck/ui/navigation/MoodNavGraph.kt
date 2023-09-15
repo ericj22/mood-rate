@@ -7,6 +7,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.moodcheck.ui.help.HelpDestination
+import com.example.moodcheck.ui.help.HelpScreen
 import com.example.moodcheck.ui.rate.PastDestination
 import com.example.moodcheck.ui.rate.PastMoodScreen
 import com.example.moodcheck.ui.rate.RateDestination
@@ -29,13 +31,15 @@ fun MoodNavHost(
                 navigateToRateMood = { navController.navigate(RateDestination.route) },
                 navigateToPastMood = { id ->
                     navController.navigate("${PastDestination.route}/${id}")
-                }
+                },
+                openHelp = { navController.navigate(HelpDestination.route) }
             )
         }
         composable(route = RateDestination.route) {
             RateMoodScreen(
                 navigateBack = { navController.popBackStack() },
-                onNavigateUp = { navController.navigateUp() }
+                onNavigateUp = { navController.navigateUp() },
+                navigateHelp = { navController.navigate(HelpDestination.route) }
             )
         }
         composable(
@@ -46,7 +50,13 @@ fun MoodNavHost(
                 }
             )
         ) {
-            PastMoodScreen(onNavigateUp = { navController.navigateUp() })
+            PastMoodScreen(
+                onNavigateUp = { navController.navigateUp() },
+                openHelp = { navController.navigate(HelpDestination.route) }
+            )
+        }
+        composable(route = HelpDestination.route) {
+            HelpScreen(onNavigateUp = { navController.navigateUp() })
         }
     }
 }

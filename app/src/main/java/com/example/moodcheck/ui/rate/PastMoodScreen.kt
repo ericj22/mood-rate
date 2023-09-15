@@ -48,6 +48,7 @@ object PastDestination : NavigationDestination {
 @Composable
 fun PastMoodScreen(
     onNavigateUp: () -> Unit,
+    openHelp: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: PastMoodViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
@@ -60,7 +61,8 @@ fun PastMoodScreen(
                     PastDestination.titleRes, uiState.mood.month, uiState.mood.day, uiState.mood.year
                 ),
                 canNavigateBack = true,
-                navigateUp = onNavigateUp
+                navigateUp = onNavigateUp,
+                openHelp = openHelp
             )
         },
 
@@ -77,7 +79,8 @@ fun PastMoodScreen(
 fun PastMoodScreenPreview() {
     MoodCheckTheme {
         PastMoodScreen(
-            onNavigateUp = { /*TODO*/ }
+            onNavigateUp = { /*TODO*/ },
+            openHelp = {  }
         )
     }
 }

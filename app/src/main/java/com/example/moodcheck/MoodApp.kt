@@ -2,6 +2,7 @@ package com.example.moodcheck
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -31,7 +32,9 @@ fun MoodTopAppBar(
     canNavigateBack: Boolean,
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior? = null,
-    navigateUp: () -> Unit = {}
+    navigateUp: () -> Unit = {},
+    openHelp: () -> Unit = {},
+    canOpenHelp: Boolean = true,
 ) {
     CenterAlignedTopAppBar(
         title = { Text(title) },
@@ -47,6 +50,16 @@ fun MoodTopAppBar(
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
                         contentDescription = stringResource(R.string.back_button)
+                    )
+                }
+            }
+        },
+        actions = {
+            if (canOpenHelp) {
+                IconButton(onClick = openHelp) {
+                    Icon(
+                        imageVector = Icons.Filled.Info,
+                        contentDescription = "Help"
                     )
                 }
             }

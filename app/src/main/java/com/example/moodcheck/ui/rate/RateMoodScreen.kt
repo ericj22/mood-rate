@@ -37,6 +37,7 @@ object RateDestination : NavigationDestination {
 fun RateMoodScreen(
     navigateBack: () -> Unit,
     onNavigateUp: () -> Unit,
+    navigateHelp: () -> Unit,
     modifier: Modifier = Modifier,
     canNavigateBack: Boolean = true,
     viewModel: RateMoodViewModel = viewModel(factory = AppViewModelProvider.Factory)
@@ -48,7 +49,8 @@ fun RateMoodScreen(
                 title = stringResource(RateDestination.titleRes),
                 modifier = modifier,
                 canNavigateBack = canNavigateBack,
-                navigateUp = onNavigateUp
+                navigateUp = onNavigateUp,
+                openHelp = navigateHelp
             )
         }
     ) { innerPadding ->
@@ -70,7 +72,7 @@ fun RateMoodScreen(
 @Composable
 fun RateMoodScreenPreview() {
     MoodCheckTheme {
-        RateMoodScreen({}, {})
+        RateMoodScreen({}, {}, {})
     }
 }
 
