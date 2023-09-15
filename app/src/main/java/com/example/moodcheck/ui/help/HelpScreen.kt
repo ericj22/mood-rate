@@ -61,7 +61,7 @@ fun HelpBody(
     Column(
         modifier = modifier.padding(32.dp)
     ){
-        Text("Welcome to Rate my Day!")
+        Text(stringResource(R.string.welcome_to_mood_rater))
         Spacer(Modifier.padding(vertical = 8.dp))
         Text(stringResource(R.string.help_instr_one))
         Text(stringResource(R.string.help_instr_two))

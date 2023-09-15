@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MoodCheck</string>
+    <string name="app_name">Mood Rater</string>
     <string name="rate_your_day">Rate your day</string>
     <string name="rate_feeling_prompt">"Rate how you're feeling today: %d"</string>
     <string name="save_action">Save</string>
@@ -25,4 +25,5 @@
     <string name="help_instr_one">Every day, you can open this app to rate your day on a scale of 1–5. You can also journal about how your day went.</string>
     <string name="help_instr_two">On the home screen, you\'ll see a bunch of bubbles that represent your mood on the day they were set. When you tap one, you\'ll get to see your rating for that day and the journal entry you left.</string>
     <string name="n_a">N/A</string>
+    <string name="welcome_to_mood_rater">Welcome to Mood Rater!</string>
 </resources>
