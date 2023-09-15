@@ -63,11 +63,8 @@ fun HelpBody(
     ){
         Text("Welcome to Rate my Day!")
         Spacer(Modifier.padding(vertical = 8.dp))
-        Text("Every day, you can open this app to rate your day on a scale of 1-5. " +
-                "You can also journal about how your day went.")
-        Text("On the home screen, you'll see a bunch of bubbles that represent your mood " +
-                "on the day they were set. When you tap one, you'll get to see your rating for " +
-                "that day and the journal entry you left.")
+        Text(stringResource(R.string.help_instr_one))
+        Text(stringResource(R.string.help_instr_two))
         Legend(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
@@ -94,7 +91,7 @@ fun Legend(
                     value = if (i != 5) {
                         "${i+1}"
                     } else {
-                        "N/A"
+                        stringResource(R.string.n_a)
                     }
                 )
             }

@@ -3,7 +3,7 @@
     <string name="rate_your_day">Rate your day</string>
     <string name="rate_feeling_prompt">"Rate how you're feeling today: %d"</string>
     <string name="save_action">Save</string>
-    <string name="journal_about_your_feelings">Journal about your feelings...</string>
+    <string name="journal_about_your_feelings">Journal about your feelings…</string>
     <string name="journal_entry">Journal Entry:</string>
     <string name="home">Home</string>
     <string name="add_rating">Add rating</string>
@@ -22,4 +22,7 @@
     <string name="back_button">Back</string>
     <string name="rating_for">"Rating for %s %d, %d"</string>
     <string name="help">Help</string>
+    <string name="help_instr_one">Every day, you can open this app to rate your day on a scale of 1–5. You can also journal about how your day went.</string>
+    <string name="help_instr_two">On the home screen, you\'ll see a bunch of bubbles that represent your mood on the day they were set. When you tap one, you\'ll get to see your rating for that day and the journal entry you left.</string>
+    <string name="n_a">N/A</string>
 </resources>
