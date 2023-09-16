@@ -2,9 +2,9 @@
 Android app for tracking and displaying a user's mood data in an interactive graphic.
 
 ## Videos
-[help.webm](https://github.com/ericj22/mood-rate/assets/43616400/a114a039-27a8-4ec9-947d-2d3809944655)
-[past.webm](https://github.com/ericj22/mood-rate/assets/43616400/5dd68c24-ca14-4f9e-a451-32cf7e0fa585)
-[rate.webm](https://github.com/ericj22/mood-rate/assets/43616400/59776850-12a0-4442-9e90-439cba4f73fb)
+[help.webm](https://github.com/ericj22/mood-rate/assets/43616400/05d8d05d-1260-4297-ac5e-c712e6b088cd)
+[past.webm](https://github.com/ericj22/mood-rate/assets/43616400/6538173b-d7b7-4b2c-9cfc-0c9e6dbc8ea6)
+[rate.webm](https://github.com/ericj22/mood-rate/assets/43616400/b59c3214-1154-45da-96ac-3a274c149529)
 
 ## Images
 
