@@ -1,7 +1,10 @@
 # Mood Rater
 Android app for tracking and displaying a user's mood data in an interactive graphic.
 
-## Video
+## Videos
+[help.webm](https://github.com/ericj22/mood-rate/assets/43616400/a114a039-27a8-4ec9-947d-2d3809944655)
+[past.webm](https://github.com/ericj22/mood-rate/assets/43616400/5dd68c24-ca14-4f9e-a451-32cf7e0fa585)
+[rate.webm](https://github.com/ericj22/mood-rate/assets/43616400/59776850-12a0-4442-9e90-439cba4f73fb)
 
 ## Images
 
